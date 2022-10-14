@@ -1,5 +1,4 @@
 import { useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import { addComment } from "../../lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -7,7 +6,6 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./NewCommentForm.module.css";
 
 const NewCommentForm = (props) => {
-  console.log(useParams().quoteId);
   const commentTextRef = useRef();
   const { sendRequest, status, error } = useHttp(addComment);
   const { onRefreshList } = props;

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
+import { useParams, Route, Routes, Link, Outlet } from "react-router-dom";
 import HightlightedQuote from "../components/quotes/HighlightedQuote";
-import Comments from "../components/comments/Comments";
 import { getSingleQuote } from "../lib/api";
 import useHttp from "../hooks/use-http";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
@@ -21,7 +20,6 @@ function QuoteDetail() {
     data: quoteDetail,
   } = useHttp(getSingleQuote, true);
   const params = useParams();
-  const match = useRouteMatch();
 
   useEffect(() => {
     fetchQuoteDetail(params.quoteId);
@@ -45,16 +43,19 @@ function QuoteDetail() {
   return (
     <div>
       <HightlightedQuote author={quoteDetail.author} text={quoteDetail.text} />
-      <Route path={match.path} exact>
-        <div className="centered">
-          <Link className="btn--flat" to={{ pathname: `${match.url}/comment` }}>
-            Load Comment
-          </Link>
-        </div>
-      </Route>
-      <Route path={`${match.path}/comment`}>
-        <Comments />
-      </Route>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="centered">
+              <Link className="btn--flat" to={{ pathname: "comment" }}>
+                Load Comment
+              </Link>
+            </div>
+          }
+        />
+      </Routes>
+      <Outlet />
     </div>
   );
 }

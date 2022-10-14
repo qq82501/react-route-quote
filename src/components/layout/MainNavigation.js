@@ -8,12 +8,22 @@ function MainNavigation() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to="/quotes" activeClassName={styles.active}>
+            <NavLink
+              to="/quotes"
+              className={(navData) => {
+                return navData.isActive ? styles.active : "";
+              }}
+            >
               All Quotes
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-quote" activeClassName={styles.active}>
+            <NavLink
+              to="/add-quote"
+              className={(navData) => {
+                return navData.isActive ? styles.active : "";
+              }}
+            >
               Add Quote
             </NavLink>
           </li>
